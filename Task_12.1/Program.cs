@@ -1,9 +1,7 @@
-﻿Random random = new();
-
+﻿
 // arrays
 int[] arr = new int[10];
 FillArray(arr);
-
 
 //structures
 MyStruct[] myStructs = new MyStruct[10];
@@ -20,7 +18,7 @@ for (int i = 0; i < 10; i++)
 
 MyStruct3[] myStruct3s;
 
-
+#region BasicImplementation
 //a
 Console.WriteLine("A:");
 PrintArray(arr);
@@ -45,6 +43,8 @@ PrintStruct3(myStruct3s);
 
 void FillArray(int[] ints)
 {
+    Random random = new();
+
     for (int i = 0; i < ints.Length; i++)
     {
         ints[i] = random.Next(-10, 10);
@@ -151,6 +151,11 @@ MyStruct3[] SortToStruct(MyStruct2[] myStruct2)
 
     return myStruct3;
 }
+#endregion
+
+
+
+
 
 struct MyStruct
 {
@@ -164,10 +169,6 @@ struct MyStruct
         Y = random1.Next(-10, 10);
     }
 
-    public void Print()
-    {
-        throw new NotImplementedException();
-    }
 }
 
 struct MyStruct2
@@ -199,3 +200,5 @@ struct MyStruct3
 
 
 }
+
+
