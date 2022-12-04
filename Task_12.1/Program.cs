@@ -1,9 +1,10 @@
-﻿
-// arrays
+﻿// Arrays
+using System.Drawing;
+
 int[] arr = new int[10];
 FillArray(arr);
 
-//structures
+// Structures
 MyStruct[] myStructs = new MyStruct[10];
 for (int i = 0; i < 10; i++)
 {
@@ -83,6 +84,7 @@ void PrintArray(int[] ints)
     {
         Console.Write($" {ints[i]} ");
     }
+    Console.WriteLine();
 }
 
 void PrintStruct(MyStruct[] ints)
@@ -153,9 +155,66 @@ MyStruct3[] SortToStruct(MyStruct2[] myStruct2)
 }
 #endregion
 
+FillArray(arr);
+Array.Clear(myStruct3s);
+Array.Clear(myStruct2s);
+Array.Clear(myStructs);
+
+for (int i = 0; i < 10; i++)
+{
+    myStructs[i] = new();
+    myStruct2s[i] = new ();
+    myStruct3s[i] = new ();
+}
+
+
+#region LINQImplementation
+
+//a
+
+Console.WriteLine("\n\n\nA:");
+PrintArray(arr);
+Console.WriteLine(arr.Max());
+
+//b
+Console.WriteLine("B:");
+Console.WriteLine(Array.IndexOf(arr, arr.Max()));
+
+//c
+
+int sortY = myStructs.Max(x => x.Y);
+Console.WriteLine("C:");
+Console.WriteLine(sortY);
+
+
+//d
+Console.WriteLine("D:");
+
+MyStruct2[] last = myStruct2s.OrderBy(x => x.Y).Select(x => x).Cast<MyStruct2>().ToArray();
+MyStruct3[] hello = Array.ConvertAll(last, new Converter<MyStruct2, MyStruct3>(toMyStruct3));
+
+foreach (var item in last)
+{
+    Console.Write($"{item.Y} ");
+}
+Console.WriteLine("");
+foreach (var item in hello)
+{
+    Console.Write($"{item.Y} ");
+}
+
+
+MyStruct3 toMyStruct3(MyStruct2 v)
+{
+    MyStruct3 myStruct3 = new MyStruct3();
+    myStruct3.X = v.X;
+    myStruct3.Y = (int)v.Y;
+    return myStruct3;
+}
 
 
 
+#endregion
 
 struct MyStruct
 {
@@ -183,6 +242,7 @@ struct MyStruct2
         Y = random1.Next(-10, 10);
     }
 
+  
 
 }
 
@@ -198,7 +258,13 @@ struct MyStruct3
         Y = random1.Next(-10, 10);
     }
 
-
+    public static explicit operator MyStruct3(MyStruct2 v)
+    {
+        MyStruct3 myStruct3 = new MyStruct3();
+        myStruct3.X = v.X;
+        myStruct3.Y = (int)v.Y;
+        return myStruct3;
+    }
 }
 
 
