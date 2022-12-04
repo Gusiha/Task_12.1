@@ -1,5 +1,7 @@
-﻿
-#region Объявление и инициализация
+﻿using Task_12._1;
+
+
+#region Assignment and Initialization
 int[] arr = new int[10];
 FillArray(arr);
 
@@ -19,7 +21,7 @@ MyStruct3[] myStruct3s;
 
 #endregion
 
-#region Обычная реализация
+#region Common Implementation
 //a
 Console.WriteLine("ОБЫЧНАЯ РЕАЛИЗАЦИЯ:");
 Console.WriteLine("A:");
@@ -44,8 +46,9 @@ myStruct3s = SortToStruct(myStruct2s);
 Console.WriteLine();
 Console.Write("После сортировки: ");
 PrintStruct3(myStruct3s);
+#endregion
 
-
+#region ArrayMethods
 void FillArray(int[] ints)
 {
     Random random = new();
@@ -55,7 +58,6 @@ void FillArray(int[] ints)
         ints[i] = random.Next(-10, 10);
     }
 }
-
 
 int FindMax(int[] ints)
 {
@@ -70,6 +72,33 @@ int FindMax(int[] ints)
     return max;
 }
 
+
+void PrintArray(int[] ints)
+{
+    for (int i = 0; i < ints.Length; i++)
+    {
+        Console.Write($" {ints[i]} ");
+    }
+    Console.WriteLine();
+}
+
+int FindIndexOfMax(int[] ints)
+{
+    int max = int.MinValue;
+    int index = 0;
+    for (int i = 0; i < ints.Length; i++)
+    {
+        if (max < ints[i])
+        {
+            max = ints[i];
+            index = i;
+        }
+    }
+    return index;
+}
+#endregion
+
+#region StructureMethods
 int FindMaxY(MyStruct[] ints)
 {
     int max = int.MinValue;
@@ -81,15 +110,6 @@ int FindMaxY(MyStruct[] ints)
         }
     }
     return max;
-}
-
-void PrintArray(int[] ints)
-{
-    for (int i = 0; i < ints.Length; i++)
-    {
-        Console.Write($" {ints[i]} ");
-    }
-    Console.WriteLine();
 }
 
 void PrintStruct(MyStruct[] ints)
@@ -115,20 +135,7 @@ void PrintStruct2(MyStruct2[] ints)
 }
 
 
-int FindIndexOfMax(int[] ints)
-{
-    int max = int.MinValue;
-    int index = 0;
-    for (int i = 0; i < ints.Length; i++)
-    {
-        if (max < ints[i])
-        {
-            max = ints[i];
-            index = i;
-        }
-    }
-    return index;
-}
+
 
 
 MyStruct3[] SortToStruct(MyStruct2[] myStruct2)
@@ -160,7 +167,7 @@ MyStruct3[] SortToStruct(MyStruct2[] myStruct2)
 }
 #endregion
 
-#region Удаляю все данные из созданных массивов для LINQ Реализации
+#region Change to default
 FillArray(arr);
 Array.Clear(myStruct3s);
 Array.Clear(myStruct2s);
@@ -170,12 +177,12 @@ Array.Clear(myStructs);
 for (int i = 0; i < 10; i++)
 {
     myStructs[i] = new();
-    myStruct2s[i] = new ();
-    myStruct3s[i] = new ();
+    myStruct2s[i] = new();
+    myStruct3s[i] = new();
 }
 #endregion
 
-#region LINQ Реализация
+#region LINQ Implementation
 Console.WriteLine("\n\nLINQ РЕАЛИЗАЦИЯ:");
 
 Console.WriteLine("A:");
@@ -227,46 +234,10 @@ MyStruct3 toMyStruct3(MyStruct2 v)
 
 #endregion
 
-struct MyStruct
-{
-    public int X { get; set; }
-    public int Y { get; set; }
 
-    public MyStruct()
-    {
-        Random random1 = new Random();
-        X = random1.Next(-10, 10);
-        Y = random1.Next(-10, 10);
-    }
 
-}
 
-struct MyStruct2
-{
-    public int X { get; set; }
-    public double Y { get; set; }
 
-    public MyStruct2()
-    {
-        Random random1 = new Random();
-        X = random1.Next(-10, 10);
-        Y = random1.Next(-10, 10);
-    }
-      
-}
 
-struct MyStruct3
-{
-    public double X { get; set; }
-    public int Y { get; set; }
-
-    public MyStruct3()
-    {
-        Random random1 = new Random();
-        X = random1.Next(-10, 10);
-        Y = random1.Next(-10, 10);
-    }
-        
-}
 
 
