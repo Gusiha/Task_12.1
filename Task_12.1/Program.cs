@@ -187,11 +187,45 @@ Console.WriteLine("\n\nLINQ РЕАЛИЗАЦИЯ:");
 
 Console.WriteLine("A:");
 PrintArray(arr);
-Console.WriteLine($"Max = {arr.Max()}");
+Console.WriteLine($"Max = {arr.OrderBy(p => p).Last()}");
+var arrMax = from p in arr
+             where p == arr.Max()
+             select p;
+
+
+
+foreach (var item in arrMax)
+{
+    Console.Write($"Max = {item} ");
+}
+
 
 //b
-Console.WriteLine("B:");
-Console.WriteLine($"Index of Max = {Array.IndexOf(arr, arr.Max())}");
+Console.WriteLine("\n\nB:");
+
+
+
+
+var MaxIndex = arr.Select((number, index) => new { Index = index, Number = number })
+    .Where(p => p.Number == arr.Max())
+    .Select(p => p.Index)
+    .First();
+
+
+Console.WriteLine($"Index of Max = {MaxIndex}");
+
+
+
+
+//Console.WriteLine($"Index of Max = {Array.IndexOf(arr, arr.Max())}");
+var MaxIndex2 = (from p in arr
+                 where p == arr.Max()
+                 select new { number = p, index = Array.IndexOf(arr, p) }).First();
+
+Console.WriteLine($"Index of Max2 = {MaxIndex2.index}");
+
+
+
 
 //c
 int sortY = myStructs.Max(x => x.Y);
@@ -204,7 +238,6 @@ Console.WriteLine($"\nMax по Y : {sortY}");
 Console.WriteLine("D:");
 
 MyStruct2[] last = myStruct2s.OrderBy(x => x.Y).Select(x => x).Cast<MyStruct2>().ToArray();
-
 MyStruct3[] hello = Array.ConvertAll(last, new Converter<MyStruct2, MyStruct3>(toMyStruct3));
 
 
@@ -229,6 +262,9 @@ MyStruct3 toMyStruct3(MyStruct2 v)
     myStruct3.Y = (int)v.Y;
     return myStruct3;
 }
+
+
+
 
 
 
